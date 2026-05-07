@@ -778,13 +778,19 @@ section {
   gap: 6px;
   margin-top: 16px;
 }
-.biz-tags span {
+.biz-tags span,
+.biz-tags .biz-tag-link {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   padding: 4px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--fg-soft);
+  text-decoration: none;
+}
+.biz-tags .biz-tag-link:hover {
+  color: var(--fg);
+  border-color: var(--fg);
 }
 .biz-arrow {
   font-family: 'Archivo', sans-serif;
