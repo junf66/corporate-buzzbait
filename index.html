@@ -181,7 +181,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
     </div>
 
     <div class="biz-list">
-      <a class="biz-item reveal" data-hover>
+      <div class="biz-item reveal" data-hover>
         <div class="biz-num">1</div>
         <div class="biz-title">WEBマーケティング・<br>コンサルティング<span class="en-sub">Web Marketing & Consulting</span></div>
         <div>
@@ -190,9 +190,9 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
             <span>美容</span><span>不動産</span><span>中古車</span><span>教育・資格</span><span>レジャー・エンタメ</span><span>保険</span><span>治療院</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <a class="biz-item reveal" data-hover>
+      <div class="biz-item reveal" data-hover>
         <div class="biz-num">2</div>
         <div class="biz-title">広告運用・出稿代行<span class="en-sub">Ad Operations & Placement</span></div>
         <div>
@@ -201,7 +201,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
             <span>Google</span><span>Yahoo!</span><span>Bing</span><span>Facebook</span><span>X / Twitter</span><span>Instagram</span><span>YouTube</span><span>TikTok</span><span>メルカリ</span><span>DSP</span>
           </div>
         </div>
-      </a>
+      </div>
 
       <div class="biz-item reveal" data-hover>
         <div class="biz-num">3</div>
@@ -356,14 +356,12 @@ document.addEventListener('mouseout', e => {
 // Nav scrolled state + progress + parallax
 const nav = document.getElementById('nav');
 const progress = document.getElementById('progress');
-const gridOverlay = document.getElementById('gridOverlay');
 const heroGrid = document.getElementById('heroGrid');
 const parallaxEls = document.querySelectorAll('[data-speed]');
 addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', scrollY > 20);
   const p = scrollY / (document.body.scrollHeight - innerHeight);
   progress.style.transform = `scaleX(${p})`;
-  if (gridOverlay) gridOverlay.style.transform = `translateY(${scrollY * 0.15}px)`;
   if (heroGrid) heroGrid.style.transform = `translateY(${scrollY * 0.3}px)`;
   parallaxEls.forEach(el => {
     const s = parseFloat(el.dataset.speed) || 0.3;

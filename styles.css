@@ -326,12 +326,6 @@ a { color: inherit; text-decoration: none; }
   font-size: 17px;
   letter-spacing: -0.02em;
 }
-.nav-brand .dot {
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 2px;
-  transform: rotate(45deg);
-}
 .nav-brand .nav-logo {
   width: 26px;
   height: 26px;
