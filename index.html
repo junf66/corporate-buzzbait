@@ -403,7 +403,7 @@ addEventListener('mousemove', e => {
   mouseX = e.clientX; mouseY = e.clientY;
   const now = performance.now();
   const d = Math.hypot(e.clientX - prevMX, e.clientY - prevMY);
-  if (now - lastSpawn > 90 && d > 6) {
+  if (now - lastSpawn > 130 && d > 6) {
     spawnRipple(e.clientX, e.clientY, Math.min(1, d / 40));
     lastSpawn = now;
   }
@@ -414,7 +414,7 @@ addEventListener('click', e => spawnRipple(e.clientX, e.clientY, 1.6));
 
 // Ambient drops
 setInterval(() => {
-  if (Math.random() < 0.5) spawnRipple(Math.random() * W, Math.random() * H, 0.3 + Math.random() * 0.3);
+  if (Math.random() < 0.35) spawnRipple(Math.random() * W, Math.random() * H, 0.3 + Math.random() * 0.3);
 }, 1400);
 
 const vsSrc = `
