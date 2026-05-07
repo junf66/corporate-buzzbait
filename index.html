@@ -395,7 +395,7 @@ let mouseX = -9999, mouseY = -9999, prevMX = -9999, prevMY = -9999;
 const MAX_RIPPLES = 8;
 const ripples = [];
 function spawnRipple(x, y, strength = 1) {
-  ripples.push({ x, y, t: 0, life: 4, strength });
+  ripples.push({ x, y, t: 0, life: 2.5, strength });
   if (ripples.length > MAX_RIPPLES) ripples.shift();
 }
 let lastSpawn = 0;
@@ -463,16 +463,16 @@ void main(){
   for (int i = 0; i < 8; i++){
     vec2 rp = vec2(uRipples[i*3], uRipples[i*3+1]);
     float rt = uRipples[i*3+2];
-    if (rt <= 0.0 || rt >= 4.0) continue;
+    if (rt <= 0.0 || rt >= 2.5) continue;
     vec2 rpUv = (rp - 0.5 * uRes) / min(uRes.x, uRes.y);
     vec2 d = p - rpUv;
     float dist = length(d);
-    float radius = rt * 0.55;
+    float radius = rt * 0.3;
     float band = abs(dist - radius);
-    float decay = 1.0 - rt / 4.0;
-    float wave = sin((dist - radius) * 32.0) * exp(-band * 18.0);
-    rippleDisp += normalize(d + vec2(0.0001)) * wave * 0.018 * decay;
-    rippleHi += exp(-band * 24.0) * decay * 0.5;
+    float decay = 1.0 - rt / 2.5;
+    float wave = sin((dist - radius) * 32.0) * exp(-band * 22.0);
+    rippleDisp += normalize(d + vec2(0.0001)) * wave * 0.011 * decay;
+    rippleHi += exp(-band * 28.0) * decay * 0.4;
   }
 
   // Sample photo with displacement (cover-fit)
