@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>株式会社バズベイト | ニッチでNo.1</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+
+<template id="__bundler_thumbnail" data-bg-color="#0b1738">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0b1738"/>
+    <text x="600" y="380" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="180" fill="#ffffff" letter-spacing="-6">ニッチで</text>
+    <text x="600" y="560" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="200" fill="#5b8cff" letter-spacing="-6">No.1</text>
+    <rect x="540" y="620" width="120" height="4" fill="#5b8cff"/>
+  </svg>
+</template>
+</head>
+<body data-theme="blue" data-mode="light">
+
+<!-- Water surface backdrop -->
+<div class="backdrop"></div>
+<canvas id="water"></canvas>
+
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "blue",
+  "mode": "dark"
+}/*EDITMODE-END*/;
+document.body.dataset.theme = TWEAK_DEFAULTS.theme;
+document.body.dataset.mode = TWEAK_DEFAULTS.mode;
+</script>
+
+<!-- Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress" id="progress"></div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand" data-hover>
+    <img src="assets/favicon.png" alt="" class="nav-logo">
+    <span>BUZZBAIT</span>
+  </a>
+  <div class="nav-links">
+    <a href="#strength" data-hover>得意・苦手</a>
+    <a href="#business" data-hover>事業内容</a>
+    <a href="#declaration" data-hover>理念</a>
+    <a href="#company" data-hover>会社概要</a>
+  </div>
+  <a href="#contact" class="nav-cta" data-hover>Contact →</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-grid" id="heroGrid"></div>
+  <div class="float-shape ring" style="top:18%;right:8%" data-speed="0.3"></div>
+  <div class="float-shape plus" style="top:30%;left:6%;animation:floatY 8s ease-in-out infinite"></div>
+  <div class="float-shape square" style="bottom:22%;right:14%;animation:spin 30s linear infinite" data-speed="0.5"></div>
+  <div class="float-shape dot" style="top:70%;left:12%" data-speed="0.7"></div>
+
+  <div class="hero-top">
+    <div class="hero-meta">
+      <div><span class="blink"></span>ONLINE / TOKYO, GINZA</div>
+      <div style="margin-top:6px">EST. 2014 — WEB MARKETING STUDIO</div>
+    </div>
+    <div class="hero-meta" style="text-align:right">
+      <div>N 35.6714° / E 139.7638°</div>
+      <div style="margin-top:6px" id="clock">—</div>
+    </div>
+  </div>
+
+  <div class="hero-title-wrap">
+    <div class="eyebrow">TAGLINE / 01</div>
+    <h1 class="hero-title">
+      <span class="line"><span class="line-inner">ニッチで</span></span>
+      <span class="line"><span class="line-inner"><span class="accent-mark">No.1</span>。</span></span>
+    </h1>
+    <div class="hero-sub">
+      <p>東京・銀座。Webメディア企画・運営、ネットマーケティング、SEO対策をしている会社。ユーザーとクライアントをマッチングするお手伝いをしています。</p>
+      <div class="tag">SMALL MARKET / DEEP FOCUS</div>
+    </div>
+  </div>
+
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>SEO</span><span>PPC</span><span>Media Planning</span><span>Content Strategy</span><span>Niche Market</span><span>SEO</span><span>PPC</span><span>Media Planning</span><span>Content Strategy</span><span>Niche Market</span>
+    </div>
+  </div>
+</section>
+
+<!-- Strength / Weakness -->
+<section class="sw" id="strength">
+  <div class="section-label"><span class="num">01</span><span>STRENGTHS &amp; WEAKNESSES</span></div>
+  <div class="wrap">
+    <div class="sw-head reveal">
+      <h2>What we do<span class="jp">得意・苦手なこと</span></h2>
+      <p class="sw-intro">少数精鋭なので大手が手掛けるような巨大プロジェクトはできません。小さな市場でのNo.1を目指しています。できることとできないことを、正直に。</p>
+    </div>
+
+    <div class="sw-grid reveal">
+      <div class="sw-card good">
+        <h3><span class="label">[+] GOOD AT</span></h3>
+        <div class="jp-title">得意なこと</div>
+        <ul>
+          <li><span class="n">01</span><span>メディア企画・運営、マネタイズ</span></li>
+          <li><span class="n">02</span><span>ネット広告運用</span></li>
+          <li><span class="n">03</span><span>小さい案件、大手がやりたがらないニッチな案件</span></li>
+        </ul>
+      </div>
+      <div class="sw-card bad">
+        <h3><span class="label">[–] NOT OUR GAME</span></h3>
+        <div class="jp-title">苦手なこと</div>
+        <ul>
+          <li><span class="n">01</span><span>大手企業がやりたがること全般</span></li>
+          <li><span class="n">02</span><span>デザイン</span></li>
+          <li><span class="n">03</span><span>非クリエイティブな単純作業</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business -->
+<section class="biz" id="business">
+  <div class="float-shape ring" style="top:15%;right:5%;width:180px;height:180px;animation:spin 40s linear infinite" data-speed="0.4"></div>
+  <div class="float-shape plus" style="bottom:12%;left:8%;animation:floatY 10s ease-in-out infinite"></div>
+  <div class="section-label"><span class="num">02</span><span>BUSINESS</span></div>
+  <div class="wrap">
+    <div class="biz-head reveal">
+      <h2>Services<span class="jp">事業内容</span></h2>
+      <p style="max-width:380px;font-size:14px;line-height:1.9;color:var(--fg-soft)">
+        広くみんなに役立つサービスは超大手さんにお任せ。特定の誰かにピンポイントで刺さるニッチ市場で価値を創造します。
+      </p>
+    </div>
+
+    <div class="biz-list">
+      <a class="biz-item reveal" data-hover>
+        <div class="biz-num">1</div>
+        <div class="biz-title">WEBマーケティング・<br>コンサルティング<span class="en-sub">Web Marketing & Consulting</span></div>
+        <div>
+          <div class="biz-desc">SEO、PPCを中心としたネット集客を得意としています。実績は幅広い業界に及びます。</div>
+          <div class="biz-tags">
+            <span>女性向け美容</span><span>不動産買取</span><span>中古車買取</span><span>教育・資格</span><span>レジャー</span><span>治療院集客</span>
+          </div>
+        </div>
+        <div class="biz-arrow">→</div>
+      </a>
+
+      <a class="biz-item reveal" data-hover>
+        <div class="biz-num">2</div>
+        <div class="biz-title">広告運用・出稿代行<span class="en-sub">Ad Operations & Placement</span></div>
+        <div>
+          <div class="biz-desc">検索エンジンでのリスティング広告からSNS、アドネットワークまで幅広く広告運用・出稿代行しております。</div>
+          <div class="biz-tags">
+            <span>Google</span><span>Yahoo!</span><span>Facebook</span><span>X / Twitter</span><span>Instagram</span><span>YouTube</span><span>TikTok</span><span>DSP</span>
+          </div>
+        </div>
+        <div class="biz-arrow">→</div>
+      </a>
+
+      <a class="biz-item reveal" data-hover>
+        <div class="biz-num">3</div>
+        <div class="biz-title">メディア企画・運営<span class="en-sub">Media Planning & Operation</span></div>
+        <div>
+          <div class="biz-desc">「狭く深く」をコンセプトにした尖ったメディア企画・運営。キーワード設計は<em style="font-style:normal;color:var(--accent)">「鶏口となるも牛後となるなかれ」</em>。</div>
+          <div class="biz-tags">
+            <span>アフターピル薬局一覧マップ</span><span>保険相談キャンペーン39社比較</span><span>自動車保険見積もりキャンペーン比較</span>
+          </div>
+        </div>
+        <div class="biz-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Declaration -->
+<section class="decl" id="declaration">
+  <div class="decl-blob"></div>
+  <div class="decl-lines"></div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="eyebrow decl-eyebrow">DECLARATION / 03 — 消費者志向自主宣言</div>
+    <h2>透明性のある<br>客観的な情報発信で、<br><em>ユーザーに価値を。</em></h2>
+    <p class="decl-lead">株式会社バズベイトは、透明性のある客観的な情報発信をしていきます。ユーザーにとって価値のある情報のみをお届けします。</p>
+
+    <div class="decl-grid">
+      <div class="decl-item reveal">
+        <div class="num">01 / COMMITMENT</div>
+        <h3>経営トップの<br>コミットメント</h3>
+        <p>消費者（ユーザー）の悩みや課題を解決できることを最優先とした発信に努めます。また、消費者の満足度向上のため、情報の鮮度を保ちつつ、正確性の維持にも取り組みます。</p>
+      </div>
+      <div class="decl-item reveal">
+        <div class="num">02 / GOVERNANCE</div>
+        <h3>コーポレート<br>ガバナンスの確保</h3>
+        <p>消費者やクライアントとの良好な関係を築くために必要な意思決定ができる体制を整備しており、運営するWEBメディアにおいては、情報の正確性や信頼性、コンプライアンスを重視しています。</p>
+      </div>
+      <div class="decl-item reveal">
+        <div class="num">03 / OBJECTIVITY</div>
+        <h3>客観的な<br>コンテンツ作成</h3>
+        <p>実体験ベースのレビューコンテンツをはじめ、第3者による客観的な意見を採用し、偏りのないコンテンツ作成をしております。ランク付けする際は、根拠をわかりやすく明記しています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Company -->
+<section class="comp" id="company">
+  <div class="section-label"><span class="num">04</span><span>COMPANY PROFILE</span></div>
+  <div class="comp-left">
+    <h2>Company<span class="jp">会社概要</span></h2>
+    <div class="comp-mono">
+      $ whoami<br>
+      → buzzbait inc.<br>
+      → ginza, tokyo, jp<br>
+      → since 2014.07
+    </div>
+  </div>
+  <div class="comp-right">
+    <table class="comp-table">
+      <tr><th>会社名</th><td>株式会社バズベイト<br><span class="en-code" style="color:var(--fg-mute)">Buzzbait, Inc.</span></td></tr>
+      <tr><th>所在地</th><td>〒104-0061<br>東京都中央区銀座七丁目１５番８号<br>タウンハイツ銀座 406</td></tr>
+      <tr><th>設立</th><td><span class="en-code">2014.07</span></td></tr>
+      <tr><th>役員</th><td>代表取締役　古澤 純哉</td></tr>
+      <tr><th>事業内容</th><td>Webメディア企画・運営<br>インターネット広告代理事業</td></tr>
+      <tr><th>法人番号</th><td class="en-code">5-0110-0110-1129</td></tr>
+      <tr><th>インボイス登録</th><td class="en-code">T5011001101129</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="en-kicker">LET'S TALK — 05</div>
+      <h2>小さく、<br>深く。<br><em>一緒に。</em></h2>
+      <p>大手がやりたがらないニッチな案件、歓迎します。まずはお気軽にご相談ください。</p>
+      <div class="address">
+        〒 104-0061<br>
+        東京都中央区銀座 7-15-8<br>
+        タウンハイツ銀座 406
+      </div>
+    </div>
+    <div class="contact-right">
+      <form class="row" onsubmit="event.preventDefault(); this.querySelector('button').innerHTML='<span>送信されました ✓</span>';">
+        <label>お名前<span class="req">*</span><input type="text" required placeholder="山田 太郎"></label>
+        <label>メールアドレス<span class="req">*</span><input type="email" required placeholder="you@example.com"></label>
+        <label>題名<input type="text" placeholder="お問い合わせの件名"></label>
+        <label>メッセージ本文<textarea placeholder="ご相談内容を記入してください"></textarea></label>
+        <button type="submit" data-hover><span>送信する / Send</span><span class="arrow">→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand"><span class="dot"></span>buzzbait, inc.</div>
+  <div class="f-meta">© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</div>
+</footer>
+
+<!-- Tweaks Panel -->
+<div class="tweaks" id="tweaks">
+  <h4>Tweaks <span class="close" id="tweakClose">✕</span></h4>
+  <div class="group">
+    <div class="group-title">Color Theme</div>
+    <div class="theme-swatches">
+      <button class="theme-swatch active" data-theme="blue" data-hover>
+        <div class="sw-color" style="background:oklch(0.55 0.16 245)"></div>
+        Blue
+      </button>
+      <button class="theme-swatch" data-theme="teal" data-hover>
+        <div class="sw-color" style="background:oklch(0.6 0.13 190)"></div>
+        Teal
+      </button>
+      <button class="theme-swatch" data-theme="graphite" data-hover>
+        <div class="sw-color" style="background:oklch(0.78 0.17 130)"></div>
+        Lime
+      </button>
+    </div>
+  </div>
+  <div class="group">
+    <div class="group-title">Mode</div>
+    <div class="mode-toggle">
+      <button class="active" data-mode="light" data-hover>Light</button>
+      <button data-mode="dark" data-hover>Dark</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Cursor follow
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+});
+function tick() {
+  rx += (mx - rx) * 0.18;
+  ry += (my - ry) * 0.18;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(tick);
+}
+tick();
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('[data-hover]')) ring.classList.add('hover');
+});
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('[data-hover]')) ring.classList.remove('hover');
+});
+
+// Nav scrolled state + progress + parallax
+const nav = document.getElementById('nav');
+const progress = document.getElementById('progress');
+const gridOverlay = document.getElementById('gridOverlay');
+const heroGrid = document.getElementById('heroGrid');
+const parallaxEls = document.querySelectorAll('[data-speed]');
+addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 20);
+  const p = scrollY / (document.body.scrollHeight - innerHeight);
+  progress.style.transform = `scaleX(${p})`;
+  if (gridOverlay) gridOverlay.style.transform = `translateY(${scrollY * 0.15}px)`;
+  if (heroGrid) heroGrid.style.transform = `translateY(${scrollY * 0.3}px)`;
+  parallaxEls.forEach(el => {
+    const s = parseFloat(el.dataset.speed) || 0.3;
+    el.style.transform = `translateY(${-scrollY * s}px)`;
+  });
+}, { passive: true });
+
+// Mouse parallax for blobs
+const blobs = document.querySelectorAll('.blob');
+addEventListener('mousemove', e => {
+  const nx = (e.clientX / innerWidth - 0.5);
+  const ny = (e.clientY / innerHeight - 0.5);
+  blobs.forEach((b, i) => {
+    const depth = (i + 1) * 30;
+    b.style.translate = `${nx * depth}px ${ny * depth}px`;
+  });
+});
+
+// ====== Photo-realistic water surface (WebGL) ======
+const canvas = document.getElementById('water');
+let gl = canvas.getContext('webgl', { alpha: false, premultipliedAlpha: false, preserveDrawingBuffer: false });
+let W = innerWidth, H = innerHeight;
+
+// Mouse + ripple sources for shader
+let mouseX = -9999, mouseY = -9999, prevMX = -9999, prevMY = -9999;
+const MAX_RIPPLES = 8;
+const ripples = [];
+function spawnRipple(x, y, strength = 1) {
+  ripples.push({ x, y, t: 0, life: 4, strength });
+  if (ripples.length > MAX_RIPPLES) ripples.shift();
+}
+let lastSpawn = 0;
+addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  const now = performance.now();
+  const d = Math.hypot(e.clientX - prevMX, e.clientY - prevMY);
+  if (now - lastSpawn > 90 && d > 6) {
+    spawnRipple(e.clientX, e.clientY, Math.min(1, d / 40));
+    lastSpawn = now;
+  }
+  prevMX = e.clientX; prevMY = e.clientY;
+}, { passive: true });
+addEventListener('mouseleave', () => { mouseX = mouseY = -9999; });
+addEventListener('click', e => spawnRipple(e.clientX, e.clientY, 1.6));
+
+// Ambient drops
+setInterval(() => {
+  if (Math.random() < 0.5) spawnRipple(Math.random() * W, Math.random() * H, 0.3 + Math.random() * 0.3);
+}, 1400);
+
+const vsSrc = `
+attribute vec2 a;
+void main(){ gl_Position = vec4(a, 0.0, 1.0); }
+`;
+
+const fsSrc = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uMouse;
+uniform vec3 uTint;
+uniform float uTintAmount;
+uniform float uDarken;
+uniform sampler2D uTex;
+uniform float uRipples[24];
+
+float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  float a = hash(i), b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+  vec2 u = f*f*(3.0-2.0*f);
+  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+float fbm(vec2 p){
+  float v = 0.0, a = 0.5;
+  for (int i=0; i<4; i++){ v += a*noise(p); p *= 2.02; a *= 0.5; }
+  return v;
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes.xy;
+  vec2 p = (gl_FragCoord.xy - 0.5 * uRes) / min(uRes.x, uRes.y);
+
+  // gentle ambient flow
+  vec2 flow = vec2(
+    fbm(p * 3.0 + vec2(uTime * 0.05, 0.0)) - 0.5,
+    fbm(p * 3.0 + vec2(0.0, uTime * 0.05) + 17.0) - 0.5
+  ) * 0.012;
+
+  // Ripple displacement
+  vec2 rippleDisp = vec2(0.0);
+  float rippleHi = 0.0;
+  for (int i = 0; i < 8; i++){
+    vec2 rp = vec2(uRipples[i*3], uRipples[i*3+1]);
+    float rt = uRipples[i*3+2];
+    if (rt <= 0.0 || rt >= 4.0) continue;
+    vec2 rpUv = (rp - 0.5 * uRes) / min(uRes.x, uRes.y);
+    vec2 d = p - rpUv;
+    float dist = length(d);
+    float radius = rt * 0.55;
+    float band = abs(dist - radius);
+    float decay = 1.0 - rt / 4.0;
+    float wave = sin((dist - radius) * 32.0) * exp(-band * 18.0);
+    rippleDisp += normalize(d + vec2(0.0001)) * wave * 0.018 * decay;
+    rippleHi += exp(-band * 24.0) * decay * 0.5;
+  }
+
+  // Sample photo with displacement (cover-fit)
+  float aspect = uRes.x / uRes.y;
+  vec2 tuv = uv;
+  float texAspect = 1.333;
+  if (aspect > texAspect) {
+    float h = texAspect / aspect;
+    tuv.y = (uv.y - 0.5) * h + 0.5;
+  } else {
+    float w = aspect / texAspect;
+    tuv.x = (uv.x - 0.5) * w + 0.5;
+  }
+  tuv += flow + rippleDisp * 0.6;
+  tuv = clamp(tuv, 0.001, 0.999);
+
+  vec3 col = texture2D(uTex, tuv).rgb;
+
+  // Brand tint
+  float lum = dot(col, vec3(0.299, 0.587, 0.114));
+  vec3 tinted = mix(col, uTint * (lum * 1.4 + 0.1), uTintAmount);
+  col = tinted;
+
+  // Darken for text legibility
+  col *= uDarken;
+
+  // Ripple specular
+  col += vec3(1.0, 1.0, 1.0) * rippleHi * 0.25;
+
+  // Cursor light pool
+  vec2 mp = (uMouse - 0.5 * uRes) / min(uRes.x, uRes.y);
+  float md = distance(p, mp);
+  col += vec3(0.9, 0.95, 1.0) * exp(-md * 6.0) * 0.08;
+
+  // vignette
+  float vig = smoothstep(1.5, 0.5, length(p));
+  col *= mix(0.78, 1.0, vig);
+
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
+
+function compile(type, src){
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+  return s;
+}
+const program = gl.createProgram();
+gl.attachShader(program, compile(gl.VERTEX_SHADER, vsSrc));
+gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fsSrc));
+gl.linkProgram(program);
+gl.useProgram(program);
+
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+const a = gl.getAttribLocation(program, 'a');
+gl.enableVertexAttribArray(a);
+gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+
+const uRes = gl.getUniformLocation(program, 'uRes');
+const uTime = gl.getUniformLocation(program, 'uTime');
+const uMouse = gl.getUniformLocation(program, 'uMouse');
+const uTint = gl.getUniformLocation(program, 'uTint');
+const uTintAmount = gl.getUniformLocation(program, 'uTintAmount');
+const uDarken = gl.getUniformLocation(program, 'uDarken');
+const uTex = gl.getUniformLocation(program, 'uTex');
+const uRipples = gl.getUniformLocation(program, 'uRipples');
+
+// Load photo texture (Unsplash pool — top-down water)
+const tex = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, tex);
+// 1x1 placeholder (deep blue) until image loads
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([20, 60, 100, 255]));
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+const img = new Image();
+img.crossOrigin = 'anonymous';
+img.onload = () => {
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+  console.log('water photo loaded', img.width, img.height);
+};
+img.onerror = (e) => console.warn('water photo failed', e);
+img.src = 'assets/water-main.jpg';
+
+function resizeCanvas(){
+  W = innerWidth; H = innerHeight;
+  const dpr = Math.min(devicePixelRatio, 2);
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+resizeCanvas();
+addEventListener('resize', resizeCanvas);
+
+function getPalette(){
+  const dark = document.body.dataset.mode === 'dark';
+  const theme = document.body.dataset.theme;
+  if (dark) {
+    if (theme === 'teal')   return { tint:[0.3,0.7,0.75], amount:0.55, darken:0.35 };
+    if (theme === 'graphite') return { tint:[0.5,0.7,0.4], amount:0.5, darken:0.35 };
+    return { tint:[0.35,0.55,0.95], amount:0.5, darken:0.35 };
+  }
+  if (theme === 'teal')   return { tint:[0.35,0.7,0.75], amount:0.45, darken:0.7 };
+  if (theme === 'graphite') return { tint:[0.55,0.7,0.45], amount:0.45, darken:0.7 };
+  return { tint:[0.35,0.55,0.9],  amount:0.45, darken:0.65 };
+}
+
+let lastT = 0;
+function render(now){
+  const t = now * 0.001;
+  const dt = Math.min(0.05, (now - lastT) * 0.001 || 0.016);
+  lastT = now;
+
+  // Update ripple times
+  for (let i = ripples.length - 1; i >= 0; i--){
+    ripples[i].t += dt;
+    if (ripples[i].t >= ripples[i].life) ripples.splice(i, 1);
+  }
+  const rippleData = new Float32Array(24);
+  for (let i = 0; i < 8; i++){
+    if (i < ripples.length){
+      rippleData[i*3] = ripples[i].x * Math.min(devicePixelRatio, 2);
+      rippleData[i*3+1] = (H - ripples[i].y) * Math.min(devicePixelRatio, 2);
+      rippleData[i*3+2] = ripples[i].t;
+    }
+  }
+
+  const pal = getPalette();
+  gl.uniform2f(uRes, canvas.width, canvas.height);
+  gl.uniform1f(uTime, t);
+  gl.uniform2f(uMouse, mouseX * Math.min(devicePixelRatio, 2), (H - mouseY) * Math.min(devicePixelRatio, 2));
+  gl.uniform3fv(uTint, pal.tint);
+  gl.uniform1f(uTintAmount, pal.amount);
+  gl.uniform1f(uDarken, pal.darken);
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.uniform1i(uTex, 0);
+  gl.uniform1fv(uRipples, rippleData);
+
+  gl.clearColor(0.05, 0.15, 0.25, 1.0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+
+// Reveal on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Clock
+function updateClock(){
+  const d = new Date();
+  document.getElementById('clock').textContent =
+    `JST ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+}
+updateClock(); setInterval(updateClock, 1000);
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id.length > 1) {
+      const t = document.querySelector(id);
+      if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+    }
+  });
+});
+
+// ====== Tweaks ======
+const tweaks = document.getElementById('tweaks');
+
+function applyTheme(theme){
+  document.body.dataset.theme = theme;
+  document.querySelectorAll('.theme-swatch').forEach(b =>
+    b.classList.toggle('active', b.dataset.theme === theme));
+}
+function applyMode(mode){
+  document.body.dataset.mode = mode;
+  document.querySelectorAll('.mode-toggle button').forEach(b =>
+    b.classList.toggle('active', b.dataset.mode === mode));
+}
+
+document.querySelectorAll('.theme-swatch').forEach(b => {
+  b.addEventListener('click', () => {
+    applyTheme(b.dataset.theme);
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{theme:b.dataset.theme}}, '*');
+  });
+});
+document.querySelectorAll('.mode-toggle button').forEach(b => {
+  b.addEventListener('click', () => {
+    applyMode(b.dataset.mode);
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{mode:b.dataset.mode}}, '*');
+  });
+});
+document.getElementById('tweakClose').addEventListener('click', () => {
+  tweaks.classList.remove('active');
+});
+
+// Set initial state
+applyTheme(TWEAK_DEFAULTS.theme);
+applyMode(TWEAK_DEFAULTS.mode);
+
+// Tweaks host protocol
+window.addEventListener('message', e => {
+  if (!e.data || !e.data.type) return;
+  if (e.data.type === '__activate_edit_mode') tweaks.classList.add('active');
+  if (e.data.type === '__deactivate_edit_mode') tweaks.classList.remove('active');
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+</script>
+
+</body>
+</html>
