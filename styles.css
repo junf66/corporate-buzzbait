@@ -486,7 +486,7 @@ section {
 .hero-title {
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 900;
-  font-size: clamp(50px, 12vw, 196px);
+  font-size: clamp(40px, 9.6vw, 157px);
   line-height: 0.88;
   letter-spacing: -0.03em;
   color: var(--fg);
