@@ -424,6 +424,7 @@ section {
 /* ============ Hero ============ */
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   padding: 160px 40px 80px;
   overflow: hidden;
   display: flex;

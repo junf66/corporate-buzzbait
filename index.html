@@ -433,7 +433,7 @@ uniform vec3 uTint;
 uniform float uTintAmount;
 uniform float uDarken;
 uniform sampler2D uTex;
-uniform float uRipples[24];
+uniform vec3 uRipples[8];
 
 float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float noise(vec2 p){
@@ -472,8 +472,8 @@ void main(){
   vec2 rippleDisp = vec2(0.0);
   float rippleHi = 0.0;
   for (int i = 0; i < 8; i++){
-    vec2 rp = vec2(uRipples[i*3], uRipples[i*3+1]);
-    float rt = uRipples[i*3+2];
+    vec2 rp = uRipples[i].xy;
+    float rt = uRipples[i].z;
     if (rt <= 0.0 || rt >= 2.5) continue;
     vec2 rpUv = (rp - 0.5 * uRes) / min(uRes.x, uRes.y);
     vec2 d = p - rpUv;
@@ -570,7 +570,6 @@ img.onload = () => {
   gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-  console.log('water photo loaded', img.width, img.height);
 };
 img.onerror = (e) => console.warn('water photo failed', e);
 img.src = 'assets/water-main.jpg';
@@ -630,7 +629,7 @@ function render(now){
   gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.uniform1i(uTex, 0);
-  gl.uniform1fv(uRipples, rippleData);
+  gl.uniform3fv(uRipples, rippleData);
 
   gl.clearColor(0.05, 0.15, 0.25, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -641,10 +640,14 @@ requestAnimationFrame(render);
 } // end if (gl)
 
 // Reveal on scroll
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+}
 
 // Clock
 function updateClock(){
