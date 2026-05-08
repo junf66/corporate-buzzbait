@@ -722,10 +722,11 @@ section {
   padding: 48px 0;
   border-bottom: 1px solid var(--line);
   position: relative;
-  transition: padding 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 .biz-item:hover {
-  padding-left: 16px;
+  transform: translateX(16px);
 }
 .biz-item:hover .biz-title { color: var(--accent); }
 
