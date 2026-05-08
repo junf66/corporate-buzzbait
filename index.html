@@ -383,7 +383,13 @@ addEventListener('mousemove', e => {
 
 // ====== Photo-realistic water surface (WebGL) ======
 const canvas = document.getElementById('water');
-let gl = canvas.getContext('webgl', { alpha: false, premultipliedAlpha: false, preserveDrawingBuffer: false });
+let gl = canvas.getContext('webgl', { alpha: false, premultipliedAlpha: false, preserveDrawingBuffer: false })
+       || canvas.getContext('experimental-webgl', { alpha: false, premultipliedAlpha: false, preserveDrawingBuffer: false });
+if (!gl) {
+  console.warn('WebGL unavailable — using static gradient backdrop');
+  canvas.style.display = 'none';
+}
+if (gl) {
 let W = innerWidth, H = innerHeight;
 
 // Mouse + ripple sources for shader
@@ -560,7 +566,6 @@ gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
 const img = new Image();
-img.crossOrigin = 'anonymous';
 img.onload = () => {
   gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
@@ -633,6 +638,7 @@ function render(now){
   requestAnimationFrame(render);
 }
 requestAnimationFrame(render);
+} // end if (gl)
 
 // Reveal on scroll
 const io = new IntersectionObserver(entries => {
