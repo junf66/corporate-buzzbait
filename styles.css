@@ -1005,7 +1005,9 @@ form .row { display: flex; flex-direction: column; gap: 28px; }
 form label {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
+}
+form .label-head {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
