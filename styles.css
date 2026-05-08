@@ -1001,7 +1001,7 @@ section {
   line-height: 1.8;
 }
 
-form.row, form .row { display: flex; flex-direction: column; gap: 36px; }
+form.row, form .row { display: flex; flex-direction: column; gap: 24px; }
 form label {
   display: flex;
   flex-direction: column;
