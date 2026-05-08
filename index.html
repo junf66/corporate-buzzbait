@@ -286,11 +286,11 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
       </div>
     </div>
     <div class="contact-right">
-      <form class="row" onsubmit="event.preventDefault(); this.querySelector('button').innerHTML='<span>送信されました ✓</span>';">
-        <label>お名前<span class="req">*</span><input type="text" required placeholder="ばず　べいと"></label>
-        <label>メールアドレス<span class="req">*</span><input type="email" required placeholder="you@example.com"></label>
-        <label>題名<input type="text" placeholder="お問い合わせの件名"></label>
-        <label>メッセージ本文<textarea placeholder="ご相談内容を記入してください"></textarea></label>
+      <form id="contactForm" class="row" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
+        <label>お名前<span class="req">*</span><input type="text" name="name" required placeholder="ばず　べいと"></label>
+        <label>メールアドレス<span class="req">*</span><input type="email" name="email" required placeholder="you@example.com"></label>
+        <label>題名<input type="text" name="subject" placeholder="お問い合わせの件名"></label>
+        <label>メッセージ本文<textarea name="message" placeholder="ご相談内容を記入してください"></textarea></label>
         <button type="submit" data-hover><span>送信する / Send</span><span class="arrow">→</span></button>
       </form>
     </div>
@@ -656,6 +656,35 @@ function updateClock(){
     `JST ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
 }
 updateClock(); setInterval(updateClock, 1000);
+
+// Contact form (Formspree)
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = contactForm.querySelector('button');
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span>送信中…</span>';
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        btn.innerHTML = '<span>送信されました ✓</span>';
+        contactForm.reset();
+      } else {
+        btn.innerHTML = '<span>送信エラー — もう一度</span>';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.innerHTML = '<span>送信エラー — もう一度</span>';
+      btn.disabled = false;
+    }
+  });
+}
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
