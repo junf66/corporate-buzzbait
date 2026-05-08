@@ -87,7 +87,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  background: var(--bg);
+  background: #0b1738;
   color: var(--fg);
 }
 html, body {
@@ -106,18 +106,20 @@ body {
   overflow-x: hidden;
   cursor: none;
   position: relative;
+  isolation: isolate;
 }
 
 /* ============ Water surface backdrop ============ */
 .backdrop {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 100%, color-mix(in oklch, var(--accent) 22%, var(--bg)) 0%, var(--bg) 70%),
-    linear-gradient(180deg, var(--bg) 0%, color-mix(in oklch, var(--accent) 8%, var(--bg)) 100%);
+    linear-gradient(rgba(11,23,56,.55), rgba(11,23,56,.75)),
+    url("assets/water-main.jpg") center / cover no-repeat,
+    #0b1738;
 }
 .backdrop canvas { display: none; }
 canvas#particles { display: none; }
@@ -128,7 +130,7 @@ canvas#water {
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   filter: contrast(1.05) saturate(1.1);
 }
