@@ -590,9 +590,9 @@ function getPalette(){
   const dark = document.body.dataset.mode === 'dark';
   const theme = document.body.dataset.theme;
   if (dark) {
-    if (theme === 'teal')   return { tint:[0.3,0.7,0.75], amount:0.55, darken:0.6 };
-    if (theme === 'graphite') return { tint:[0.5,0.7,0.4], amount:0.5, darken:0.6 };
-    return { tint:[0.35,0.55,0.95], amount:0.5, darken:0.6 };
+    if (theme === 'teal')   return { tint:[0.3,0.7,0.75], amount:0.55, darken:0.45 };
+    if (theme === 'graphite') return { tint:[0.5,0.7,0.4], amount:0.5, darken:0.45 };
+    return { tint:[0.35,0.55,0.95], amount:0.5, darken:0.45 };
   }
   if (theme === 'teal')   return { tint:[0.35,0.7,0.75], amount:0.45, darken:0.7 };
   if (theme === 'graphite') return { tint:[0.55,0.7,0.45], amount:0.45, darken:0.7 };
