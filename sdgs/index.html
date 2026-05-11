@@ -17,8 +17,6 @@
 
 <link rel="stylesheet" href="/styles.css">
 <style>
-  body { cursor: auto; }
-  a, button { cursor: pointer; }
   .sdgs-wrap {
     max-width: 880px;
     margin: 0 auto;
@@ -55,10 +53,9 @@
     opacity: 0.7;
   }
   .hero-illust {
-    width: 180px;
+    width: 200px;
     height: auto;
-    color: var(--fg-soft);
-    opacity: 0.28;
+    opacity: 0.85;
     margin: 8px 0 56px;
     display: block;
   }
@@ -149,6 +146,9 @@
 <div class="backdrop"></div>
 <canvas id="water"></canvas>
 
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <nav class="nav" id="nav">
   <a href="/" class="nav-brand" data-hover>
     <img src="/assets/favicon.png" alt="" class="nav-logo">
@@ -175,16 +175,12 @@
   <h1 class="sdgs-title">健康と関係性を、<br>一杯の牛乳から。</h1>
 
   <svg class="hero-illust" viewBox="0 0 200 80" aria-hidden="true">
-    <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="#ffffff" stroke="#ffffff" stroke-width="1" stroke-linejoin="round">
       <path d="M30 18h14v4l3 7v29H27V29l3-7v-4z"/>
-      <line x1="30" y1="18" x2="44" y2="18"/>
-      <line x1="27" y1="38" x2="47" y2="38"/>
       <path d="M70 36c0-6 4-10 10-10s10 4 10 10v22c0 2-2 4-4 4H74c-2 0-4-2-4-4V36z"/>
-      <path d="M70 40h20"/>
       <ellipse cx="80" cy="24" rx="3" ry="1.5"/>
       <path d="M120 30h22v28c0 2-2 4-4 4h-14c-2 0-4-2-4-4V30z"/>
       <path d="M120 30l4-6h14l4 6"/>
-      <line x1="120" y1="40" x2="142" y2="40"/>
       <path d="M170 36c0-3 2-6 6-6s6 3 6 6v22c0 2-2 4-4 4h-4c-2 0-4-2-4-4V36z"/>
       <ellipse cx="176" cy="30" rx="4" ry="2"/>
     </g>
@@ -228,6 +224,29 @@
   <div class="f-brand"><span class="dot"></span>BUZZBAIT, Inc.</div>
   <div class="f-meta">© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</div>
 </footer>
+
+<script>
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+});
+function tick() {
+  rx += (mx - rx) * 0.18;
+  ry += (my - ry) * 0.18;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(tick);
+}
+tick();
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('[data-hover]')) ring.classList.add('hover');
+});
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('[data-hover]')) ring.classList.remove('hover');
+});
+</script>
 
 </body>
 </html>
