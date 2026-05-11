@@ -44,6 +44,21 @@
     color: var(--fg-soft);
     text-transform: uppercase;
     margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .milk-icon {
+    color: var(--accent);
+    opacity: 0.7;
+  }
+  .hero-illust {
+    width: 180px;
+    height: auto;
+    color: var(--fg-soft);
+    opacity: 0.28;
+    margin: 8px 0 56px;
+    display: block;
   }
   .sdgs-title {
     font-family: 'Noto Sans JP', sans-serif;
@@ -147,8 +162,31 @@
 <main class="sdgs-wrap">
   <a href="/" class="sdgs-back" data-hover>← Back to Home</a>
 
-  <div class="sdgs-eyebrow">SUSTAINABILITY / 牛乳・乳製品の消費拡大</div>
+  <div class="sdgs-eyebrow">
+    <svg class="milk-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 2h6v3l1.5 3v13H7.5V8L9 5V2z"/>
+      <line x1="9" y1="2" x2="15" y2="2"/>
+      <line x1="7.5" y1="12" x2="16.5" y2="12"/>
+    </svg>
+    SUSTAINABILITY / 牛乳・乳製品の消費拡大
+  </div>
   <h1 class="sdgs-title">健康と関係性を、<br>一杯の牛乳から。</h1>
+
+  <svg class="hero-illust" viewBox="0 0 200 80" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M30 18h14v4l3 7v29H27V29l3-7v-4z"/>
+      <line x1="30" y1="18" x2="44" y2="18"/>
+      <line x1="27" y1="38" x2="47" y2="38"/>
+      <path d="M70 36c0-6 4-10 10-10s10 4 10 10v22c0 2-2 4-4 4H74c-2 0-4-2-4-4V36z"/>
+      <path d="M70 40h20"/>
+      <ellipse cx="80" cy="24" rx="3" ry="1.5"/>
+      <path d="M120 30h22v28c0 2-2 4-4 4h-14c-2 0-4-2-4-4V30z"/>
+      <path d="M120 30l4-6h14l4 6"/>
+      <line x1="120" y1="40" x2="142" y2="40"/>
+      <path d="M170 36c0-3 2-6 6-6s6 3 6 6v22c0 2-2 4-4 4h-4c-2 0-4-2-4-4V36z"/>
+      <ellipse cx="176" cy="30" rx="4" ry="2"/>
+    </g>
+  </svg>
 
   <p class="sdgs-lead">
     株式会社バズベイトは、社員の健康増進と取引先との良好な関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。日々の業務の中で「飲む・配る・伝える」を実践し、日本酪農の持続可能性に小さくとも継続的な貢献を目指します。
