@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>牛乳・乳製品の消費拡大に向けた取り組み | 株式会社バズベイト</title>
+<meta name="description" content="株式会社バズベイトは、社員の健康増進と取引先との関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。">
+<link rel="canonical" href="https://buzzbait.co.jp/sdgs/">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/favicon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛乳・乳製品の消費拡大に向けた取り組み | 株式会社バズベイト">
+<meta property="og:description" content="社員の健康増進と取引先との関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。">
+<meta property="og:url" content="https://buzzbait.co.jp/sdgs/">
+<meta property="og:image" content="https://buzzbait.co.jp/assets/og-image.png">
+
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .sdgs-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 200px 40px 120px;
+    position: relative;
+    z-index: 1;
+  }
+  .sdgs-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--fg-soft);
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .sdgs-back:hover { color: var(--accent); }
+  .sdgs-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--fg-soft);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .sdgs-title {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 5vw, 60px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin-bottom: 32px;
+  }
+  .sdgs-lead {
+    font-size: 17px;
+    line-height: 2;
+    color: var(--fg-soft);
+    margin-bottom: 80px;
+  }
+  .sdgs-section {
+    margin-bottom: 64px;
+    padding: 40px;
+    border: 1px solid color-mix(in oklch, var(--fg) 14%, transparent);
+    border-radius: 10px;
+    background: color-mix(in oklch, var(--fg) 4%, transparent);
+  }
+  .sdgs-section h2 {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--fg);
+    margin-bottom: 8px;
+  }
+  .sdgs-section .num {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .sdgs-section p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--fg-soft);
+    margin-top: 16px;
+  }
+  .sdgs-section .target {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .sdgs-meta {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid color-mix(in oklch, var(--fg) 14%, transparent);
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--fg-soft);
+  }
+  .sdgs-meta dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-top: 16px;
+  }
+  .sdgs-meta dd {
+    margin-left: 0;
+    color: var(--fg);
+  }
+  @media (max-width: 700px) {
+    .sdgs-wrap { padding: 140px 20px 80px; }
+    .sdgs-section { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body data-theme="blue" data-mode="dark">
+
+<div class="backdrop"></div>
+<canvas id="water"></canvas>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand" data-hover>
+    <img src="/assets/favicon.png" alt="" class="nav-logo">
+    <span>BUZZBAIT</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#business" data-hover>Business</a>
+    <a href="/#company" data-hover>Company</a>
+    <a href="/#contact" data-hover>Contact</a>
+  </div>
+</nav>
+
+<main class="sdgs-wrap">
+  <a href="/" class="sdgs-back" data-hover>← Back to Home</a>
+
+  <div class="sdgs-eyebrow">SUSTAINABILITY / 牛乳・乳製品の消費拡大</div>
+  <h1 class="sdgs-title">健康と関係性を、<br>一杯の牛乳から。</h1>
+
+  <p class="sdgs-lead">
+    株式会社バズベイトは、社員の健康増進と取引先との良好な関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。日々の業務の中で「飲む・配る・伝える」を実践し、日本酪農の持続可能性に小さくとも継続的な貢献を目指します。
+  </p>
+
+  <section class="sdgs-section">
+    <div class="num">01 / INTERNAL</div>
+    <span class="target">社内向け</span>
+    <h2>社員への牛乳・ヨーグルトの定期配布</h2>
+    <p>
+      社員の健康維持とコンディション向上を目的に、社内で牛乳・ヨーグルトを定期的に配布しています。タンパク質・カルシウムを日常的に摂取できる環境を整備することで、社員一人ひとりの牛乳・乳製品消費を継続的に底上げしています。
+    </p>
+  </section>
+
+  <section class="sdgs-section">
+    <div class="num">02 / PARTNERS</div>
+    <span class="target">取引先向け</span>
+    <h2>取引先への消費促進</h2>
+    <p>
+      日々の打ち合わせや贈答の機会において、取引先に牛乳・乳製品を取り入れる提案を行っています。Webマーケティング会社として情報発信の力を活用し、関係各社における牛乳・乳製品の認知と消費の拡大を後押ししています。
+    </p>
+  </section>
+
+  <dl class="sdgs-meta">
+    <dt>運営主体</dt>
+    <dd>株式会社バズベイト</dd>
+    <dt>所在地</dt>
+    <dd>東京都中央区銀座七丁目１５番８号 タウンハイツ銀座 406</dd>
+    <dt>事業内容</dt>
+    <dd>Webメディア企画・運営 / インターネット広告代理事業</dd>
+    <dt>お問い合わせ</dt>
+    <dd><a href="/#contact" style="color:var(--accent)">お問い合わせフォーム →</a></dd>
+  </dl>
+</main>
+
+<footer class="footer">
+  <div class="f-brand"><span class="dot"></span>BUZZBAIT, Inc.</div>
+  <div class="f-meta">© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</div>
+</footer>
+
+</body>
+</html>
