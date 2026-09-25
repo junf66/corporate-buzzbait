@@ -11,9 +11,13 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://buzzbait.co.jp/">
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Archivo:ital,wght@0,500;0,700;0,800;1,800&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/favicon.png">
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
@@ -52,40 +56,22 @@
   }
 }
 </script>
-
-<template id="__bundler_thumbnail" data-bg-color="#0b1738">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#0b1738"/>
-    <text x="600" y="380" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="180" fill="#ffffff" letter-spacing="-6">ニッチで</text>
-    <text x="600" y="560" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="200" fill="#5b8cff" letter-spacing="-6">No.1</text>
-    <rect x="540" y="620" width="120" height="4" fill="#5b8cff"/>
-  </svg>
-</template>
 </head>
-<body data-theme="blue" data-mode="light">
+<body data-theme="blue" data-mode="dark">
 
 <!-- Water surface backdrop -->
 <div class="backdrop"></div>
-<canvas id="water"></canvas>
-
-<script>
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "blue",
-  "mode": "dark"
-}/*EDITMODE-END*/;
-document.body.dataset.theme = TWEAK_DEFAULTS.theme;
-document.body.dataset.mode = TWEAK_DEFAULTS.mode;
-</script>
+<canvas id="water" aria-hidden="true"></canvas>
 
 <!-- Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="progress" id="progress"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <!-- Nav -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-brand" data-hover>
-    <img src="assets/favicon.png" alt="" class="nav-logo">
+  <a href="#top" class="nav-brand" data-hover>
+    <img src="/assets/logo-white.png" alt="" class="nav-logo" width="26" height="26">
     <span>BUZZBAIT</span>
   </a>
   <div class="nav-links">
@@ -97,14 +83,9 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
   <a href="#contact" class="nav-cta" data-hover>Contact →</a>
 </nav>
 
+<main>
 <!-- Hero -->
 <section class="hero" id="top">
-  <div class="hero-grid" id="heroGrid"></div>
-  <div class="float-shape ring" style="top:18%;right:8%" data-speed="0.3"></div>
-  <div class="float-shape plus" style="top:30%;left:6%;animation:floatY 8s ease-in-out infinite"></div>
-  <div class="float-shape square" style="bottom:22%;right:14%;animation:spin 30s linear infinite" data-speed="0.5"></div>
-  <div class="float-shape dot" style="top:70%;left:12%" data-speed="0.7"></div>
-
   <div class="hero-top">
     <div class="hero-meta">
       <div><span class="blink"></span>TIDE / RISING · GINZA STUDIO</div>
@@ -118,7 +99,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
 
   <div class="hero-title-wrap">
     <h1 class="visually-hidden">株式会社バズベイト — ニッチでNo.1の銀座Webマーケティング会社</h1>
-    <div class="eyebrow">MANIFESTO / 01</div>
+    <div class="eyebrow">MANIFESTO / 00</div>
     <div class="hero-title" aria-hidden="true">
       <span class="line"><span class="line-inner">ニッチで</span></span>
       <span class="line"><span class="line-inner"><span class="accent-mark">No.1</span></span></span>
@@ -132,7 +113,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
 
   <div class="hero-marquee">
     <div class="marquee-track">
-      <span>SEO</span><span>PPC</span><span>LPO</span><span>Micro Copy</span><span>Generative AI</span><span>SNS</span><span>Web Marketing</span><span>Media Planning</span><span>Content Strategy</span><span>Niche Market</span><span>SEO</span><span>PPC</span><span>LPO</span><span>Micro Copy</span><span>Generative AI</span><span>SNS</span><span>Web Marketing</span><span>Media Planning</span><span>Content Strategy</span><span>Niche Market</span>
+      <span>SEO</span><span>PPC</span><span>LPO</span><span>Micro Copy</span><span>Generative AI</span><span>SNS</span><span>Web Marketing</span><span>Media Planning</span><span>Content Strategy</span><span>Niche Market</span><span aria-hidden="true">SEO</span><span aria-hidden="true">PPC</span><span aria-hidden="true">LPO</span><span aria-hidden="true">Micro Copy</span><span aria-hidden="true">Generative AI</span><span aria-hidden="true">SNS</span><span aria-hidden="true">Web Marketing</span><span aria-hidden="true">Media Planning</span><span aria-hidden="true">Content Strategy</span><span aria-hidden="true">Niche Market</span>
     </div>
   </div>
 </section>
@@ -171,8 +152,6 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
 
 <!-- Business -->
 <section class="biz" id="business">
-  <div class="float-shape ring" style="top:15%;right:5%;width:180px;height:180px;animation:spin 40s linear infinite" data-speed="0.4"></div>
-  <div class="float-shape plus" style="bottom:12%;left:8%;animation:floatY 10s ease-in-out infinite"></div>
   <div class="section-label"><span class="num">02</span><span>BUSINESS</span></div>
   <div class="wrap">
     <div class="biz-head reveal">
@@ -185,7 +164,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
     <div class="biz-list">
       <div class="biz-item reveal" data-hover>
         <div class="biz-num">1</div>
-        <div class="biz-title">WEBマーケティング・<br>コンサルティング<span class="en-sub">Web Marketing & Consulting</span></div>
+        <div class="biz-title">WEBマーケティング・<br>コンサルティング<span class="en-sub">Web Marketing &amp; Consulting</span></div>
         <div>
           <div class="biz-desc">SEO、PPCを中心としたネット集客を得意としています。実績は幅広い業界に及びます。</div>
           <div class="biz-tags">
@@ -196,7 +175,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
 
       <div class="biz-item reveal" data-hover>
         <div class="biz-num">2</div>
-        <div class="biz-title">広告運用・出稿代行<span class="en-sub">Ad Operations & Placement</span></div>
+        <div class="biz-title">広告運用・出稿代行<span class="en-sub">Ad Operations &amp; Placement</span></div>
         <div>
           <div class="biz-desc">検索エンジンでのリスティング広告からSNS、アドネットワークまで幅広く広告運用・出稿代行しております。</div>
           <div class="biz-tags">
@@ -207,7 +186,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
 
       <div class="biz-item reveal" data-hover>
         <div class="biz-num">3</div>
-        <div class="biz-title">メディア企画・運営<span class="en-sub">Media Planning & Operation</span></div>
+        <div class="biz-title">メディア企画・運営<span class="en-sub">Media Planning &amp; Operation</span></div>
         <div>
           <div class="biz-desc">「狭く深く」をコンセプトにした尖ったメディア企画・運営。キーワード設計は<em style="font-style:normal">「鶏口となるも牛後となるなかれ」</em>。</div>
           <div class="biz-tags">
@@ -242,7 +221,7 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
       <div class="decl-item reveal">
         <div class="num">03 / OBJECTIVITY</div>
         <h3>客観的な<br>コンテンツ作成</h3>
-        <p>実体験ベースのレビューコンテンツをはじめ、第3者による客観的な意見を採用し、偏りのないコンテンツ作成をしております。ランク付けする際は、根拠をわかりやすく明記しています。</p>
+        <p>実体験ベースのレビューコンテンツをはじめ、第三者による客観的な意見を採用し、偏りのないコンテンツ作成をしております。ランク付けする際は、根拠をわかりやすく明記しています。</p>
       </div>
     </div>
   </div>
@@ -262,13 +241,13 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
   </div>
   <div class="comp-right">
     <table class="comp-table">
-      <tr><th>会社名</th><td>株式会社バズベイト<br><span class="en-code" style="color:var(--fg-mute)">Buzzbait, Inc.</span></td></tr>
-      <tr><th>所在地</th><td>〒104-0061<br>東京都中央区銀座七丁目１５番８号<br>タウンハイツ銀座 406</td></tr>
-      <tr><th>設立</th><td><span class="en-code">2014年7月</span></td></tr>
-      <tr><th>役員</th><td>代表取締役　古澤 純哉</td></tr>
-      <tr><th>事業内容</th><td>Webメディア企画・運営<br>インターネット広告代理事業</td></tr>
-      <tr><th>法人番号</th><td class="en-code">5-0110-0110-1129</td></tr>
-      <tr><th>インボイス登録</th><td class="en-code">T5011001101129</td></tr>
+      <tr><th scope="row">会社名</th><td>株式会社バズベイト<br><span class="en-code" style="color:var(--fg-mute)">Buzzbait, Inc.</span></td></tr>
+      <tr><th scope="row">所在地</th><td>〒104-0061<br>東京都中央区銀座七丁目１５番８号<br>タウンハイツ銀座 406</td></tr>
+      <tr><th scope="row">設立</th><td><span class="en-code">2014年7月</span></td></tr>
+      <tr><th scope="row">役員</th><td>代表取締役　古澤 純哉</td></tr>
+      <tr><th scope="row">事業内容</th><td>Webメディア企画・運営<br>インターネット広告代理事業</td></tr>
+      <tr><th scope="row">法人番号</th><td class="en-code">5-0110-0110-1129</td></tr>
+      <tr><th scope="row">インボイス登録</th><td class="en-code">T5011001101129</td></tr>
     </table>
   </div>
 </section>
@@ -288,100 +267,39 @@ document.body.dataset.mode = TWEAK_DEFAULTS.mode;
     </div>
     <div class="contact-right">
       <form id="contactForm" class="row" action="https://formspree.io/f/maqabokr" method="POST">
-        <label><span class="label-head">お名前<span class="req">*</span></span><input type="text" name="name" required placeholder="ばず　べいと"></label>
-        <label><span class="label-head">メールアドレス<span class="req">*</span></span><input type="email" name="email" required placeholder="you@example.com"></label>
+        <input type="hidden" name="_subject" value="【buzzbait.co.jp】お問い合わせ">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+        <label><span class="label-head">お名前<span class="req">*</span></span><input type="text" name="name" required autocomplete="name" placeholder="ばず　べいと"></label>
+        <label><span class="label-head">メールアドレス<span class="req">*</span></span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
         <label><span class="label-head">題名</span><input type="text" name="subject" placeholder="お問い合わせの件名"></label>
         <label><span class="label-head">メッセージ本文</span><textarea name="message" placeholder="ご相談内容を記入してください"></textarea></label>
+        <p class="form-note">送信いただいた情報は、お問い合わせへの回答のためにのみ利用します。詳しくは<a href="/privacy/">プライバシーポリシー</a>をご確認ください。</p>
         <button type="submit" data-hover><span>送信する / Send</span><span class="arrow">→</span></button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="f-brand"><span class="dot"></span>BUZZBAIT, Inc.</div>
-  <div class="f-meta">© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</div>
+  <div class="f-meta"><a href="/privacy/">プライバシーポリシー</a><span>© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</span></div>
 </footer>
 
-<!-- Tweaks Panel -->
-<div class="tweaks" id="tweaks">
-  <h4>Tweaks <span class="close" id="tweakClose">✕</span></h4>
-  <div class="group">
-    <div class="group-title">Color Theme</div>
-    <div class="theme-swatches">
-      <button class="theme-swatch active" data-theme="blue" data-hover>
-        <div class="sw-color" style="background:oklch(0.55 0.16 245)"></div>
-        Blue
-      </button>
-      <button class="theme-swatch" data-theme="teal" data-hover>
-        <div class="sw-color" style="background:oklch(0.6 0.13 190)"></div>
-        Teal
-      </button>
-      <button class="theme-swatch" data-theme="graphite" data-hover>
-        <div class="sw-color" style="background:oklch(0.78 0.17 130)"></div>
-        Lime
-      </button>
-    </div>
-  </div>
-  <div class="group">
-    <div class="group-title">Mode</div>
-    <div class="mode-toggle">
-      <button class="active" data-mode="light" data-hover>Light</button>
-      <button data-mode="dark" data-hover>Dark</button>
-    </div>
-  </div>
-</div>
-
 <script src="/water.js"></script>
+<script src="/cursor.js"></script>
 <script>
-// Cursor follow
-const dot = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
-addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-});
-function tick() {
-  rx += (mx - rx) * 0.18;
-  ry += (my - ry) * 0.18;
-  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-  requestAnimationFrame(tick);
-}
-tick();
-document.addEventListener('mouseover', e => {
-  if (e.target.closest('[data-hover]')) ring.classList.add('hover');
-});
-document.addEventListener('mouseout', e => {
-  if (e.target.closest('[data-hover]')) ring.classList.remove('hover');
-});
-
-// Nav scrolled state + progress + parallax
+// Nav scrolled state + scroll progress bar
 const nav = document.getElementById('nav');
 const progress = document.getElementById('progress');
-const heroGrid = document.getElementById('heroGrid');
-const parallaxEls = document.querySelectorAll('[data-speed]');
-addEventListener('scroll', () => {
+function onScroll() {
   nav.classList.toggle('scrolled', scrollY > 20);
-  const p = scrollY / (document.body.scrollHeight - innerHeight);
-  progress.style.transform = `scaleX(${p})`;
-  if (heroGrid) heroGrid.style.transform = `translateY(${scrollY * 0.3}px)`;
-  parallaxEls.forEach(el => {
-    const s = parseFloat(el.dataset.speed) || 0.3;
-    el.style.transform = `translateY(${-scrollY * s}px)`;
-  });
-}, { passive: true });
-
-// Mouse parallax for blobs
-const blobs = document.querySelectorAll('.blob');
-addEventListener('mousemove', e => {
-  const nx = (e.clientX / innerWidth - 0.5);
-  const ny = (e.clientY / innerHeight - 0.5);
-  blobs.forEach((b, i) => {
-    const depth = (i + 1) * 30;
-    b.style.translate = `${nx * depth}px ${ny * depth}px`;
-  });
-});
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+}
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 
 // Reveal on scroll
 if ('IntersectionObserver' in window) {
@@ -393,95 +311,57 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
 }
 
-// Clock
-function updateClock(){
-  const d = new Date();
-  document.getElementById('clock').textContent =
-    `JST ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+// Clock — always Japan time, regardless of the visitor's timezone
+const clockEl = document.getElementById('clock');
+const jstFormat = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Asia/Tokyo', hourCycle: 'h23',
+  hour: '2-digit', minute: '2-digit', second: '2-digit',
+});
+function updateClock() {
+  if (clockEl) clockEl.textContent = 'JST ' + jstFormat.format(new Date());
 }
 updateClock(); setInterval(updateClock, 1000);
 
 // Contact form (Formspree)
 const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
 if (contactForm) {
+  const btn = contactForm.querySelector('button[type="submit"]');
+  const original = btn.innerHTML;
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = contactForm.querySelector('button');
-    const original = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = '<span>送信中…</span>';
+    formStatus.textContent = '';
     try {
       const res = await fetch(contactForm.action, {
         method: 'POST',
         body: new FormData(contactForm),
         headers: { Accept: 'application/json' }
       });
-      if (res.ok) {
-        btn.innerHTML = '<span>送信されました ✓</span>';
-        contactForm.reset();
-      } else {
-        btn.innerHTML = '<span>送信エラー — もう一度</span>';
-        btn.disabled = false;
-      }
-    } catch {
-      btn.innerHTML = '<span>送信エラー — もう一度</span>';
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      btn.innerHTML = '<span>送信されました ✓</span>';
+      formStatus.textContent = 'お問い合わせを受け付けました。ありがとうございました。';
+      contactForm.reset();
+    } catch (err) {
+      btn.innerHTML = original;
       btn.disabled = false;
+      formStatus.textContent = '送信できませんでした。時間をおいて、もう一度お試しください。';
     }
   });
 }
 
-// Smooth scroll
+// Smooth scroll for in-page links
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href');
     if (id.length > 1) {
       const t = document.querySelector(id);
-      if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); }
     }
   });
 });
-
-// ====== Tweaks ======
-const tweaks = document.getElementById('tweaks');
-
-function applyTheme(theme){
-  document.body.dataset.theme = theme;
-  document.querySelectorAll('.theme-swatch').forEach(b =>
-    b.classList.toggle('active', b.dataset.theme === theme));
-}
-function applyMode(mode){
-  document.body.dataset.mode = mode;
-  document.querySelectorAll('.mode-toggle button').forEach(b =>
-    b.classList.toggle('active', b.dataset.mode === mode));
-}
-
-document.querySelectorAll('.theme-swatch').forEach(b => {
-  b.addEventListener('click', () => {
-    applyTheme(b.dataset.theme);
-    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{theme:b.dataset.theme}}, '*');
-  });
-});
-document.querySelectorAll('.mode-toggle button').forEach(b => {
-  b.addEventListener('click', () => {
-    applyMode(b.dataset.mode);
-    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{mode:b.dataset.mode}}, '*');
-  });
-});
-document.getElementById('tweakClose').addEventListener('click', () => {
-  tweaks.classList.remove('active');
-});
-
-// Set initial state
-applyTheme(TWEAK_DEFAULTS.theme);
-applyMode(TWEAK_DEFAULTS.mode);
-
-// Tweaks host protocol
-window.addEventListener('message', e => {
-  if (!e.data || !e.data.type) return;
-  if (e.data.type === '__activate_edit_mode') tweaks.classList.add('active');
-  if (e.data.type === '__deactivate_edit_mode') tweaks.classList.remove('active');
-});
-window.parent.postMessage({type:'__edit_mode_available'}, '*');
 </script>
 
 </body>

@@ -5,16 +5,28 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>牛乳・乳製品の消費拡大に向けた取り組み | 株式会社バズベイト</title>
 <meta name="description" content="株式会社バズベイトは、社員の健康増進と取引先との関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。">
+<meta name="theme-color" content="#0b1738">
 <link rel="canonical" href="https://buzzbait.co.jp/sdgs/">
-<link rel="icon" href="/assets/favicon.png">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/favicon.png">
 
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="株式会社バズベイト">
 <meta property="og:title" content="牛乳・乳製品の消費拡大に向けた取り組み | 株式会社バズベイト">
 <meta property="og:description" content="社員の健康増進と取引先との関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。">
 <meta property="og:url" content="https://buzzbait.co.jp/sdgs/">
 <meta property="og:image" content="https://buzzbait.co.jp/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="牛乳・乳製品の消費拡大に向けた取り組み | 株式会社バズベイト">
+<meta name="twitter:description" content="社員の健康増進と取引先との関係構築を通じて、牛乳・乳製品の消費拡大に取り組んでいます。">
+<meta name="twitter:image" content="https://buzzbait.co.jp/assets/og-image.png">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Archivo:ital,wght@0,500;0,700;0,800;1,800&family=JetBrains+Mono:wght@400&display=swap">
 <link rel="stylesheet" href="/styles.css">
 <style>
   .sdgs-wrap {
@@ -135,7 +147,7 @@
     margin-left: 0;
     color: var(--fg);
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     .sdgs-wrap { padding: 140px 20px 80px; }
     .sdgs-section { padding: 28px 20px; }
   }
@@ -144,14 +156,14 @@
 <body data-theme="blue" data-mode="dark">
 
 <div class="backdrop"></div>
-<canvas id="water"></canvas>
+<canvas id="water" aria-hidden="true"></canvas>
 
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
 <nav class="nav" id="nav">
   <a href="/" class="nav-brand" data-hover>
-    <img src="/assets/favicon.png" alt="" class="nav-logo">
+    <img src="/assets/logo-white.png" alt="" class="nav-logo" width="26" height="26">
     <span>BUZZBAIT</span>
   </a>
 </nav>
@@ -216,34 +228,13 @@
   </dl>
 </main>
 
-<footer class="footer">
+<footer>
   <div class="f-brand"><span class="dot"></span>BUZZBAIT, Inc.</div>
-  <div class="f-meta">© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</div>
+  <div class="f-meta"><a href="/privacy/">プライバシーポリシー</a><span>© 2026 BUZZBAIT INC. — ALL RIGHTS RESERVED</span></div>
 </footer>
 
 <script src="/water.js"></script>
-<script>
-const dot = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
-addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-});
-function tick() {
-  rx += (mx - rx) * 0.18;
-  ry += (my - ry) * 0.18;
-  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-  requestAnimationFrame(tick);
-}
-tick();
-document.addEventListener('mouseover', e => {
-  if (e.target.closest('[data-hover]')) ring.classList.add('hover');
-});
-document.addEventListener('mouseout', e => {
-  if (e.target.closest('[data-hover]')) ring.classList.remove('hover');
-});
-</script>
+<script src="/cursor.js"></script>
 
 </body>
 </html>

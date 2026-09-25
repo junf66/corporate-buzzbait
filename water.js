@@ -1,17 +1,31 @@
 // ====== Photo-realistic water surface (WebGL) — shared by all pages ======
+// Any failure path hides the canvas so the static CSS photo in .backdrop shows instead.
 (function () {
 const canvas = document.getElementById('water');
 if (!canvas) return;
 
-let gl = canvas.getContext('webgl', { alpha: false, premultipliedAlpha: false, preserveDrawingBuffer: false })
-       || canvas.getContext('experimental-webgl', { alpha: false, premultipliedAlpha: false, preserveDrawingBuffer: false });
-if (!gl) {
-  console.warn('WebGL unavailable — using static gradient backdrop');
+function fallback(reason) {
+  if (reason) console.warn('water: ' + reason + ' — using static backdrop');
   canvas.style.display = 'none';
-  return;
 }
 
-let W = innerWidth, H = innerHeight;
+// Visitors who asked for reduced motion get the static photo.
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { fallback(); return; }
+
+// failIfMajorPerformanceCaveat: software-rendered WebGL (blocklisted GPU, VMs) would crawl,
+// so fall back to the static photo there too.
+const ctxOpts = {
+  alpha: false, antialias: false, depth: false, stencil: false,
+  premultipliedAlpha: false, preserveDrawingBuffer: false,
+  failIfMajorPerformanceCaveat: true,
+};
+const gl = canvas.getContext('webgl', ctxOpts) || canvas.getContext('experimental-webgl', ctxOpts);
+if (!gl) { fallback('WebGL unavailable'); return; }
+
+// Max drawing-buffer size. The water is soft and blurry, so capping resolution on
+// large / high-DPR screens is invisible but saves a lot of GPU work.
+const PIXEL_BUDGET = 2.5e6;
+let W = innerWidth, H = innerHeight, dpr = 1;
 
 let mouseX = -9999, mouseY = -9999, prevMX = -9999, prevMY = -9999;
 const MAX_RIPPLES = 8;
@@ -31,10 +45,13 @@ addEventListener('mousemove', e => {
   }
   prevMX = e.clientX; prevMY = e.clientY;
 }, { passive: true });
-addEventListener('mouseleave', () => { mouseX = mouseY = -9999; });
+// mouseleave does not reach window; listen on the root element instead.
+document.documentElement.addEventListener('mouseleave', () => { mouseX = mouseY = -9999; });
 addEventListener('click', e => spawnRipple(e.clientX, e.clientY, 1.6));
 
+// Ambient drops (skipped while the tab is hidden).
 setInterval(() => {
+  if (document.hidden) return;
   if (Math.random() < 0.35) spawnRipple(Math.random() * W, Math.random() * H, 0.3 + Math.random() * 0.3);
 }, 1400);
 
@@ -129,7 +146,8 @@ void main(){
   float md = distance(p, mp);
   col += vec3(0.9, 0.95, 1.0) * exp(-md * 6.0) * 0.08;
 
-  float vig = smoothstep(1.5, 0.5, length(p));
+  // vignette: 1 at the centre, fading out towards the edges
+  float vig = 1.0 - smoothstep(0.5, 1.5, length(p));
   col *= mix(0.78, 1.0, vig);
 
   gl_FragColor = vec4(col, 1.0);
@@ -140,13 +158,24 @@ function compile(type, src){
   const s = gl.createShader(type);
   gl.shaderSource(s, src);
   gl.compileShader(s);
-  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    console.error(gl.getShaderInfoLog(s));
+    return null;
+  }
   return s;
 }
+const vs = compile(gl.VERTEX_SHADER, vsSrc);
+const fs = compile(gl.FRAGMENT_SHADER, fsSrc);
+if (!vs || !fs) { fallback('shader compile failed'); return; }
 const program = gl.createProgram();
-gl.attachShader(program, compile(gl.VERTEX_SHADER, vsSrc));
-gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fsSrc));
+gl.attachShader(program, vs);
+gl.attachShader(program, fs);
 gl.linkProgram(program);
+if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+  console.error(gl.getProgramInfoLog(program));
+  fallback('shader link failed');
+  return;
+}
 gl.useProgram(program);
 
 const buf = gl.createBuffer();
@@ -175,38 +204,42 @@ gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
 const img = new Image();
 img.onload = () => {
+  if (gl.isContextLost()) return;
   gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
 };
-img.onerror = (e) => console.warn('water photo failed', e);
+img.onerror = () => fallback('water photo failed to load');
 img.src = '/assets/water-main.jpg';
 
 function resizeCanvas(){
   W = innerWidth; H = innerHeight;
-  const dpr = Math.min(devicePixelRatio, 2);
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
+  dpr = Math.min(devicePixelRatio || 1, 2, Math.sqrt(PIXEL_BUDGET / Math.max(1, W * H)));
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
   canvas.style.width = W + 'px';
   canvas.style.height = H + 'px';
   gl.viewport(0, 0, canvas.width, canvas.height);
 }
 resizeCanvas();
-addEventListener('resize', resizeCanvas);
+// Coalesce bursts of resize events (e.g. mobile toolbars) into one reallocation per frame.
+let resizeQueued = false;
+addEventListener('resize', () => {
+  if (resizeQueued) return;
+  resizeQueued = true;
+  requestAnimationFrame(() => { resizeQueued = false; resizeCanvas(); });
+});
 
-function getPalette(){
-  const dark = document.body.dataset.mode === 'dark';
-  const theme = document.body.dataset.theme;
-  if (dark) {
-    if (theme === 'teal')   return { tint:[0.3,0.7,0.75], amount:0.55, darken:0.45 };
-    if (theme === 'graphite') return { tint:[0.5,0.7,0.4], amount:0.5, darken:0.45 };
-    return { tint:[0.35,0.55,0.95], amount:0.5, darken:0.45 };
-  }
-  if (theme === 'teal')   return { tint:[0.35,0.7,0.75], amount:0.45, darken:0.7 };
-  if (theme === 'graphite') return { tint:[0.55,0.7,0.45], amount:0.45, darken:0.7 };
-  return { tint:[0.35,0.55,0.9],  amount:0.45, darken:0.65 };
-}
+// The site is dark-mode / blue-theme only.
+const PALETTE = { tint: [0.35, 0.55, 0.95], amount: 0.5, darken: 0.45 };
 
+let raf = 0;
+canvas.addEventListener('webglcontextlost', () => {
+  cancelAnimationFrame(raf);
+  fallback('WebGL context lost');
+}, false);
+
+const rippleData = new Float32Array(MAX_RIPPLES * 3);
 let lastT = 0;
 function render(now){
   const t = now * 0.001;
@@ -217,22 +250,19 @@ function render(now){
     ripples[i].t += dt;
     if (ripples[i].t >= ripples[i].life) ripples.splice(i, 1);
   }
-  const rippleData = new Float32Array(24);
-  for (let i = 0; i < 8; i++){
-    if (i < ripples.length){
-      rippleData[i*3] = ripples[i].x * Math.min(devicePixelRatio, 2);
-      rippleData[i*3+1] = (H - ripples[i].y) * Math.min(devicePixelRatio, 2);
-      rippleData[i*3+2] = ripples[i].t;
-    }
+  rippleData.fill(0);
+  for (let i = 0; i < ripples.length && i < MAX_RIPPLES; i++){
+    rippleData[i*3] = ripples[i].x * dpr;
+    rippleData[i*3+1] = (H - ripples[i].y) * dpr;
+    rippleData[i*3+2] = ripples[i].t;
   }
 
-  const pal = getPalette();
   gl.uniform2f(uRes, canvas.width, canvas.height);
   gl.uniform1f(uTime, t);
-  gl.uniform2f(uMouse, mouseX * Math.min(devicePixelRatio, 2), (H - mouseY) * Math.min(devicePixelRatio, 2));
-  gl.uniform3fv(uTint, pal.tint);
-  gl.uniform1f(uTintAmount, pal.amount);
-  gl.uniform1f(uDarken, pal.darken);
+  gl.uniform2f(uMouse, mouseX * dpr, (H - mouseY) * dpr);
+  gl.uniform3fv(uTint, PALETTE.tint);
+  gl.uniform1f(uTintAmount, PALETTE.amount);
+  gl.uniform1f(uDarken, PALETTE.darken);
   gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.uniform1i(uTex, 0);
@@ -241,7 +271,7 @@ function render(now){
   gl.clearColor(0.05, 0.15, 0.25, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
-  requestAnimationFrame(render);
+  raf = requestAnimationFrame(render);
 }
-requestAnimationFrame(render);
+raf = requestAnimationFrame(render);
 })();
