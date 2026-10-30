@@ -1,9 +1,10 @@
 // Cloudflare Pages middleware — runs before static assets on every request.
 //  1. www.buzzbait.co.jp → buzzbait.co.jp (301, path and query preserved).
 //     Pages' _redirects file cannot match on hostname, so this lives here.
-//  2. Legacy files removed from the repo (handoff/, README.md) answer 404
+//  2. Legacy files removed from the repo (handoff/, README.md) and repo-only folders
+//     (tools/, functions/) answer 404
 //     even if an older cached copy still exists.
-const LEGACY = /^\/(handoff(\/|$)|README\.md$)/i;
+const LEGACY = /^\/(handoff(\/|$)|README\.md$|tools(\/|$)|functions(\/|$))/i;
 
 export async function onRequest({ request, next, env }) {
   const url = new URL(request.url);
