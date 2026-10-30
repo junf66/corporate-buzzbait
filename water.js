@@ -210,7 +210,7 @@ img.onload = () => {
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
 };
 img.onerror = () => fallback('water photo failed to load');
-img.src = '/assets/water-main.jpg';
+img.src = '/assets/water-main.webp';
 
 function resizeCanvas(){
   W = innerWidth; H = innerHeight;
